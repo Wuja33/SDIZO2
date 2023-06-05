@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="SDIZO2"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDIZO2">
+				<Option output="/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/SDIZO2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 SDIZO2"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDIZO2/fast">
+				<Option output="/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/SDIZO2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 SDIZO2/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/AdjacencyList.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/AdjacencyList.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/AdjacencyMatrix.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/AdjacencyMatrix.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/Edge.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/Edge.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/ListElement.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Graphs/ListElement.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Menu/Menu.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Menu/Menu.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Array.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Array.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/CostAndPrevElement.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/CostAndPrevElement.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/FileClass.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/FileClass.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Generator.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Generator.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Heap.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Heap.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/HeapSSSP.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/HeapSSSP.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/HeapSSSPelement.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/HeapSSSPelement.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Set.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Set.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/SetNode.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/SetNode.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Timer.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/Tools/Timer.h">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/main.cpp">
+			<Option target="SDIZO2"/>
+		</Unit>
+		<Unit filename="/mnt/d/Dokumenty/SDIZO2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

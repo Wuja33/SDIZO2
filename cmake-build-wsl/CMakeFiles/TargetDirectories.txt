@@ -1,0 +1,3 @@
+/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/CMakeFiles/SDIZO2.dir
+/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/CMakeFiles/edit_cache.dir
+/mnt/d/Dokumenty/SDIZO2/cmake-build-wsl/CMakeFiles/rebuild_cache.dir
