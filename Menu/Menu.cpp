@@ -369,7 +369,7 @@ void Menu::showMenuMst() {
                 int matrixMST = 0;
                 int listMST = 0;
 
-                cout << "MST - PRIMA - MACIERZ SASIEDZTWA" << endl;
+                cout << "MST - KRUSKAL - MACIERZ SASIEDZTWA" << endl;
                 cout << "  Edge  Weight" << endl;
                 for (int i = 0; i < matrix->getNodesCount() - 1; ++i) {
                     cout << "  " << '(' << mTable[i]->getVStart() << ',' << mTable[i]->getVEnd() << ')';

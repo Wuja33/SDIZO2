@@ -192,16 +192,17 @@ void AdjacencyMatrix::printMatrix() {
 }
 
 Edge** AdjacencyMatrix::algorithmKruskal() {
-    Heap* queue = new Heap(edgeCount);      //kolejka priorytetowa jako kopiec
+    Heap* heap = new Heap(edgeCount, true);      //kolejka priorytetowa jako kopiec
     Edge** tableMST = new Edge*[nodesCount-1];
     for (int i = 0; i < nodesCount; ++i) {
         for (int j=1+i; j < nodesCount; ++j) {  //dodawanie krawędzi tylko z jednej strony macierzy, (macierz jest symetryczna względem przekątnej)
             if (wsk[i][j] == nullptr)           //jeśli to null, to krawedź nie istnieje
                 continue;
             else
-                queue->push(wsk[i][j]);
+                heap->add(wsk[i][j]);
         }
     }
+    heap->buildHeap();                          //budowanie kopca
 
     Set* helpSet = new Set(nodesCount); //utworzenie zbioru, który będzie przechowywał zbiory wierzchołków
 
@@ -214,7 +215,7 @@ Edge** AdjacencyMatrix::algorithmKruskal() {
 
         do
         {
-            edgeHelp = queue->pop();            //kolejna krawędź
+            edgeHelp = heap->pop();            //kolejna krawędź
         } while (helpSet->find(edgeHelp->getVStart())==helpSet->find(edgeHelp->getVEnd()));//sprawdzenie czy nie robi cyklu
 
         tableMST[i] = edgeHelp;                 //dodanie znalezionej krawędzi
@@ -223,7 +224,7 @@ Edge** AdjacencyMatrix::algorithmKruskal() {
 
 
 
-    delete queue;
+    delete heap;
     delete helpSet;
 
     return tableMST;

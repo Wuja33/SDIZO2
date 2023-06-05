@@ -14,10 +14,23 @@ Heap::Heap(int size)
     heapSize = 0;
     this->size = size;
 }
+Heap::Heap(int size, bool buildAfter) {
+    wsk = new Edge *[size];
+    heapSize = 0;
+    this->size = size;
+}
 Heap::~Heap() {
     delete[] wsk;
 }
-
+void Heap::add(Edge* edge) {
+    wsk[heapSize++] = edge;
+}
+void Heap::buildHeap()
+{
+    for (int i = size/2 -1; i >= 0; --i) {
+        heapify(i);
+    }
+}
 void Heap::push(Edge* edge)
 {
     wsk[heapSize++] = edge;             //wpisz nowa wartoœæ na ostatniej pozycji
@@ -58,32 +71,66 @@ void Heap::heapifyBottom() {
     }
 }
 
+void Heap::heapify(int parent) {
+    int leftChild = (2*parent) + 1;
+    int rightChild = (2*parent) + 2;
+
+    int min = 0;
+    Edge* help;
+
+    do {
+        min = parent;
+        if (leftChild < heapSize && wsk[leftChild]->getWeight() < wsk[min]->getWeight())      //sprawdz czy lewe dziecko jest mniejsze od rodzica
+        {
+            min = leftChild;
+        }
+
+        if (rightChild < heapSize && wsk[rightChild]->getWeight() < wsk[min]->getWeight())    //sprawdz czy prawe dziecko jest mniejsze od min
+        {
+            min = rightChild;
+        }
+
+        if (min != parent)
+        {
+            help = wsk[parent];
+            wsk[parent] = wsk[min];
+            wsk[min] = help;
+
+            parent = min;
+            leftChild = (2*parent) + 1;
+            rightChild = (2*parent) + 2;
+        } else              //jeœli nie wykryto zmiany, zakoñcz
+            break;
+
+    } while (true);
+}
+
 void Heap::heapifyTop() {
     int leftChild = 1;
     int rightChild = 2;
-    int max = 0;
+    int min = 0;
     int parent = 0;
     Edge* help;
 
     do {
-        max = parent;
-        if (leftChild < heapSize && wsk[leftChild]->getWeight() < wsk[max]->getWeight())      //sprawdz czy lewe dziecko jest mniejsze od rodzica
+        min = parent;
+        if (leftChild < heapSize && wsk[leftChild]->getWeight() < wsk[min]->getWeight())      //sprawdz czy lewe dziecko jest mniejsze od rodzica
         {
-            max = leftChild;
+            min = leftChild;
         }
 
-        if (rightChild < heapSize && wsk[rightChild]->getWeight() < wsk[max]->getWeight())    //sprawdz czy prawe dziecko jest mniejsze od max
+        if (rightChild < heapSize && wsk[rightChild]->getWeight() < wsk[min]->getWeight())    //sprawdz czy prawe dziecko jest mniejsze od min
         {
-            max = rightChild;
+            min = rightChild;
         }
 
-        if (max!=parent)
+        if (min != parent)
         {
             help = wsk[parent];
-            wsk[parent] = wsk[max];
-            wsk[max] = help;
+            wsk[parent] = wsk[min];
+            wsk[min] = help;
 
-            parent = max;
+            parent = min;
             leftChild = (2*parent) + 1;
             rightChild = (2*parent) + 2;
         } else              //jeœli nie wykryto zmiany, zakoñcz

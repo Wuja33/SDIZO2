@@ -87,7 +87,7 @@ AdjacencyList::AdjacencyList(int nodes, int edge, int start, int end) {
 }
 
 Edge** AdjacencyList::algorithmKruskal() {
-    Heap* queue = new Heap(edgeCount*2);      //kolejka priorytetowa jako kopiec
+    Heap* heap = new Heap(edgeCount * 2, true);      //kolejka priorytetowa jako kopiec
     Edge** tableMST = new Edge*[nodesCount-1];
     ListElement* helpElement;
 
@@ -95,10 +95,11 @@ Edge** AdjacencyList::algorithmKruskal() {
         helpElement = wsk[i];
         while (helpElement)                  //uzupełniaj dopóki masz kolejne elementy
         {
-            queue->push(helpElement->getEdge());
+            heap->add(helpElement->getEdge());
             helpElement = helpElement->getNext();
         }
     }
+    heap->buildHeap();  //budowanie kopca
 
     Set* helpSet = new Set(nodesCount); //utworzenie zbioru, który będzie przechowywał zbiory wierzchołków
 
@@ -111,7 +112,7 @@ Edge** AdjacencyList::algorithmKruskal() {
 
         do
         {
-            edgeHelp = queue->pop();            //kolejna krawędź
+            edgeHelp = heap->pop();            //kolejna krawędź
         } while (helpSet->find(edgeHelp->getVStart())==helpSet->find(edgeHelp->getVEnd())); //sprawdzenie czy nie robi cyklu
 
         tableMST[i] = edgeHelp;                 //dodanie znalezionej krawędzi
@@ -119,7 +120,7 @@ Edge** AdjacencyList::algorithmKruskal() {
     }
 
 
-    delete queue;
+    delete heap;
     delete helpSet;
 
     return tableMST;

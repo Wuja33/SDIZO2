@@ -10,11 +10,15 @@ class Heap {
 public:
     Heap();
     Heap(int size);
+    Heap(int size,bool build);
     ~Heap();
     void push(Edge* edge);
+    void add(Edge* edge);
     Edge* pop();
+    void buildHeap();
     void heapifyBottom();
     void heapifyTop();
+    void heapify(int parent);
     void print();
     bool isEmpty();
 
