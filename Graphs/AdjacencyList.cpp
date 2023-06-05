@@ -9,7 +9,7 @@
 
 using namespace std;
 
-AdjacencyList::AdjacencyList():nodesCount(-1),edgeCount(-1),wsk(nullptr),startNode(-1),endNode(-1)
+AdjacencyList::AdjacencyList():nodesCount(-1),edgeCount(-1),wsk(nullptr),startNode(-1),endNode(-1),negativeWeight(false)
 {}
 
 AdjacencyList::~AdjacencyList() {
@@ -27,10 +27,14 @@ AdjacencyList::~AdjacencyList() {
 }
 
 void AdjacencyList::addEdgeDirected(int VStart, int VEnd, int weight) {
+    if (weight < 0)
+        negativeWeight = true;
     wsk[VStart] = new ListElement(new Edge(VStart,VEnd,weight),wsk[VStart]);
 }
 
 void AdjacencyList::addEdgeNonDirected(int VStart, int VEnd, int weight) {
+    if (weight < 0)
+        negativeWeight = true;
     wsk[VStart] = new ListElement(new Edge(VStart,VEnd,weight),wsk[VStart]);
     wsk[VEnd] = new ListElement(new Edge(VEnd,VStart,weight),wsk[VEnd]);
 }
@@ -83,10 +87,19 @@ AdjacencyList::AdjacencyList(int nodes, int edge, int start, int end) {
     startNode = start;
     endNode = end;
     wsk = new ListElement *[nodesCount];
+    negativeWeight = false;
     fillListZero();
 }
 
 Edge** AdjacencyList::algorithmKruskal() {
+    ///OPIS DZIAŁANIA ALGORYTMU///
+    //1.Tworzymy kopiec typu minimum, który służy nam za przechowywanie wszystkich krawędzi oraz ich posortowanie
+    //2.Tworzymy tablice tableMST, która przechowuje nam krawędzie dodane do MST.
+    //3.Tworzymy podzbiory rozłączne dla każdego wierzchołka
+    //4.Wykonujemy V-1 wyborów krawędzi (tyle jest nam tylko potrzebne do zbudowania MST), za pomocą
+    //pobierania kolejnej i kolejnej krawędzi z kopca. Jeśli 2 końce krawędzi znajdują się w 2 innych podzbiorach (mają inny korzeń)
+    //to oznacza że nie mamy cyklu i dodajemy je do wyniku oraz łączymy ich pozbiory
+
     Heap* heap = new Heap(edgeCount * 2, true);      //kolejka priorytetowa jako kopiec
     Edge** tableMST = new Edge*[nodesCount-1];
     ListElement* helpElement;
@@ -127,6 +140,18 @@ Edge** AdjacencyList::algorithmKruskal() {
 }
 
 Edge** AdjacencyList::algorithmPrima() {
+    ///OPIS DZIAŁANIA ALGORYTMU///
+    //1.Tworzymy tablice, która przechowuje czy dany wiezchołek został juz odwiedzony
+    //2.Tworzymy kopiec typu minimum, który służy nam jako kolejka priorytetowa, do którego to będziemy dodawać kolejne krawędzie z wierzchołków
+    //3.Tworzymy tablice tableMST, która przechowuje nam krawędzie dodane do MST.
+    //4.Wierzchołek startowy ustawiamy domyślnie jako odwiedzony, reszta na nieodwiedzoną
+    //5.Do kopca dodajemy wszystkie krawędzie, które są połączone z wierzchołkiem startowym
+    //6.Wybieramy tyle krawędzi, aż nie skończy się kopiec lub uzyskamy V-1 krawędzi. Pobieramy z kopca krawędź o najmniejszej
+    //wadze, następnie sprawdzamy czy końcowy wierzchołek jej krawędzi jest już odwiedzony.
+    // Jeśli nie, to dodajemy ją do wyniku
+    //oraz dodajemy do kopca wszystkie krawędzie, z którymi jest połączony końcowy wierzchołek. Potem wybieramy kolejną krawędź
+    // Jeśli tak, to pobieramy kolejną krawędź
+
     bool* visitedNodes = new bool [nodesCount]; //tablica przechowująca dodane wierzchołki do drzewa
     Heap *queue = new Heap(edgeCount);      //kolejka priorytetowa jako kopiec
     Edge** tableMST = new Edge*[nodesCount-1];  //tablica przechowująca krawędzie MST
@@ -178,9 +203,25 @@ Edge** AdjacencyList::algorithmPrima() {
 }
 
 HeapSSSP* AdjacencyList::algorithmDijkstra() {
+    ///OPIS DZIAŁANIA ALGORYTMU///
+    //1.Tworzymy lekko zmodyfikowany kopiec typu minimum, który będzie przechowywał
+    //nam wszystkie wierzchołki wraz z ich aktualnem kosztem dojścia i poprzednikiem w ścieżce. Podczas operacji pop()
+    //nie usuwamy wierzchołka z tablicy (tylko z kopca), aby później móc go zmodyfikować, jeśli znajdzie się lepsza ścieżka dla niego
+    //W kopcu zapisujemy też aktualne położenia danych wierzchołków w kopcu (po zmianie kosztu wierzchołka, zmienia się jego
+    //pozycja w kopcu, lecz nie jego indeks).
+    //Podczas inicjalizacji kopca dodajemy do niego obiekty HeapSSSPelement, które przechowują: koszt, indeks oraz indeks poprzednika
+    //Na samym początku dla każdego elementu ustawiamy koszt dojścia na INT32_MAX, a poprzednika jako -1.
+    //Tylko dla wierzchołka startowego zmieniamy koszt dojścia na 0 (będzie to pierwszy rozpatrywany wierzchołek)
+    //2.Pobieramy wierzchołki do tego momentu, aż skończy skończy się kopiec.
+    //Gdy pobierzemy wierzchołek z kopca, sprawdzamy każdego jego sąsiada.
+    //Jeśli koszt dojścia do pobranego wierzchołka + waga krawędzi do rozpatrywanego sąsiada jest mniejsza, niż
+    //aktualny koszt dojścia do rozpatrywanego sąsiada, to należy dokonać relaksacji.
+    //Zamieniamy poprzednika rozpartywanego sąsiada na pobrany wierzchołek oraz zmieniamy koszt dojścia.
+    //W przeciwnym razie, rozpatrujemy kolejnego sąsiada.
+    //3. Po zakończeniu pętli, przeglądamy całą tablice kopca, i odczytujemy wyniki dla każdego wierzchołka
+
     HeapSSSP* heap = new HeapSSSP(nodesCount, startNode);  //kopiec jako kolejka priorytetowa, przechowująca wierzchołki wraz z kosztem dojścia (koszt dojścia jest kluczem)
 
-    ///SZUKANIE NAJKRÓTSZEJ ŚCIEŻKI W GRAFIE. ROZPOCZYNAMY OD 0
     //Wykonujem dopóki w kopcu pozostały jeszcze nieużyte wierzchołki
     while (!heap->isEmpty())
     {
@@ -240,6 +281,7 @@ CostAndPrevElement** AdjacencyList::algorithmBellmanFord() {
         if (!change)
             break;          //jeśli nie było zmian, to zakończ algorytm
     }
+
 
     delete[] edges;
     return tablePath;
@@ -369,4 +411,8 @@ AdjacencyList::AdjacencyList(int nodeAmount, int density, bool isMST) {
 
     delete tableNodesToAdd;
     delete[] tablePossibleEdges;
+}
+
+bool AdjacencyList::isNegativeEdge() {
+    return negativeWeight;
 }

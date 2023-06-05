@@ -5,7 +5,7 @@
 #include <cstdint>
 #include "CostAndPrevElement.h"
 
-CostAndPrevElement::CostAndPrevElement():cost(INT32_MAX),prev(-1)
+CostAndPrevElement::CostAndPrevElement():cost(1000000000),prev(-1)
 {}
 
 void CostAndPrevElement::setCost(int newCost) {

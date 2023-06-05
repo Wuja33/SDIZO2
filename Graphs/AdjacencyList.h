@@ -11,6 +11,7 @@ class AdjacencyList {
     int edgeCount;
     int startNode;
     int endNode;
+    bool negativeWeight;
 public:
     AdjacencyList();
     AdjacencyList(int nodes,int edge,int start, int end);
@@ -33,6 +34,7 @@ public:
     int getEdgeCount();
     int getStartNode();
     int getEndNode();
+    bool isNegativeEdge();
 };
 
 

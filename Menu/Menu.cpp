@@ -276,8 +276,8 @@ void Menu::showMenuAutomatic() {
 }
 
 void Menu::showMenuMst() {
-    AdjacencyMatrix* matrix = new AdjacencyMatrix();
-    AdjacencyList* list = new AdjacencyList();
+    AdjacencyMatrix* matrix = nullptr;
+    AdjacencyList* list = nullptr;
     Timer timer;
     int chooseOption = 0;
 
@@ -302,7 +302,7 @@ void Menu::showMenuMst() {
                     AdjacencyList* newList;
                     newMatrix = FileClass::matrixFromFile(filename, false);
                     newList = FileClass::listFromFile(filename, false);
-                    if (newMatrix && newList)
+                    if (newMatrix != nullptr)
                     {
                         delete matrix;
                         delete list;
@@ -314,81 +314,93 @@ void Menu::showMenuMst() {
                 }
                 break;
             case 2:	//WYŚWIETL GRAF
-                matrix->printMatrix();
-                list->printList();
+                if (matrix == nullptr) {
+                    cout << "NIE WCZYTANO GRAFU!\n";
+                } else {
+                    matrix->printMatrix();
+                    list->printList();
+                }
                 break;
             case 3: //MST - PRIMA
             {
-                timer.run();
-                Edge **mTable = matrix->algorithmPrima();
-                timer.stop();
-                cout << "Czas (matrix):" << timer.getTimeMs() << " ms"<<endl;
+                if (matrix == nullptr) {
+                    cout << "NIE WCZYTANO GRAFU!\n";
+                } else {
+                    timer.run();
+                    Edge **mTable = matrix->algorithmPrima();
+                    timer.stop();
+                    cout << "Czas (matrix):" << timer.getTimeMs() << " ms" << endl;
 
-                timer.run();
-                Edge **lTable = list->algorithmPrima();
-                timer.stop();
-                cout << "Czas (list):" << timer.getTimeMs() << " ms"<<endl;
+                    timer.run();
+                    Edge **lTable = list->algorithmPrima();
+                    timer.stop();
+                    cout << "Czas (list):" << timer.getTimeMs() << " ms" << endl;
 
-                int matrixMST = 0;
-                int listMST = 0;
+                    int matrixMST = 0;
+                    int listMST = 0;
 
-                cout << "MST - PRIMA - MACIERZ SASIEDZTWA" << endl;
-                cout << "  Edge  Weight" << endl;
-                for (int i = 0; i < matrix->getNodesCount() - 1; ++i) {
-                    cout << "  " << '(' << mTable[i]->getVStart() << ',' << mTable[i]->getVEnd() << ')';
-                    cout << "  " << mTable[i]->getWeight() << endl;
-                    matrixMST += mTable[i]->getWeight();
+                    cout << "MST - PRIMA - MACIERZ SASIEDZTWA" << endl;
+                    cout << "  Edge  Weight" << endl;
+                    for (int i = 0; i < matrix->getNodesCount() - 1; ++i) {
+                        cout << "  " << '(' << mTable[i]->getVStart() << ',' << mTable[i]->getVEnd() << ')';
+                        cout << "  " << mTable[i]->getWeight() << endl;
+                        matrixMST += mTable[i]->getWeight();
+                    }
+                    cout << "MST=" << matrixMST << endl << endl;
+
+                    cout << "MST - PRIMA - LISTA SASIEDZTWA" << endl;
+                    cout << "  Edge  Weight" << endl;
+                    for (int i = 0; i < list->getNodesCount() - 1; ++i) {
+                        cout << "  " << '(' << lTable[i]->getVStart() << ',' << lTable[i]->getVEnd() << ')';
+                        cout << "  " << lTable[i]->getWeight() << endl;
+                        listMST += lTable[i]->getWeight();
+                    }
+                    cout << "MST=" << listMST << endl << endl;
+
+                    delete[] lTable;
+                    delete[] mTable;
                 }
-                cout << "MST=" << matrixMST << endl << endl;
-
-                cout << "MST - PRIMA - LISTA SASIEDZTWA" << endl;
-                cout << "  Edge  Weight" << endl;
-                for (int i = 0; i < list->getNodesCount() - 1; ++i) {
-                    cout << "  " << '(' << lTable[i]->getVStart() << ',' << lTable[i]->getVEnd() << ')';
-                    cout << "  " << lTable[i]->getWeight() << endl;
-                    listMST += lTable[i]->getWeight();
-                }
-                cout << "MST=" << listMST << endl << endl;
-
-                delete[] lTable;
-                delete[] mTable;
             }
                 break;
             case 4: //MST - KRUSKAL
             {
-                timer.run();
-                Edge **mTable = matrix->algorithmKruskal();
-                timer.stop();
-                cout << "Czas (matrix):" << timer.getTimeMs() << " ms"<<endl;
+                if (matrix == nullptr) {
+                    cout << "NIE WCZYTANO GRAFU!\n";
+                } else {
+                    timer.run();
+                    Edge **mTable = matrix->algorithmKruskal();
+                    timer.stop();
+                    cout << "Czas (matrix):" << timer.getTimeMs() << " ms" << endl;
 
-                timer.run();
-                Edge **lTable = list->algorithmKruskal();
-                timer.stop();
-                cout << "Czas (list):" << timer.getTimeMs() << " ms"<<endl;
+                    timer.run();
+                    Edge **lTable = list->algorithmKruskal();
+                    timer.stop();
+                    cout << "Czas (list):" << timer.getTimeMs() << " ms" << endl;
 
-                int matrixMST = 0;
-                int listMST = 0;
+                    int matrixMST = 0;
+                    int listMST = 0;
 
-                cout << "MST - KRUSKAL - MACIERZ SASIEDZTWA" << endl;
-                cout << "  Edge  Weight" << endl;
-                for (int i = 0; i < matrix->getNodesCount() - 1; ++i) {
-                    cout << "  " << '(' << mTable[i]->getVStart() << ',' << mTable[i]->getVEnd() << ')';
-                    cout << "  " << mTable[i]->getWeight() << endl;
-                    matrixMST += mTable[i]->getWeight();
+                    cout << "MST - KRUSKAL - MACIERZ SASIEDZTWA" << endl;
+                    cout << "  Edge  Weight" << endl;
+                    for (int i = 0; i < matrix->getNodesCount() - 1; ++i) {
+                        cout << "  " << '(' << mTable[i]->getVStart() << ',' << mTable[i]->getVEnd() << ')';
+                        cout << "  " << mTable[i]->getWeight() << endl;
+                        matrixMST += mTable[i]->getWeight();
+                    }
+                    cout << "MST=" << matrixMST << endl << endl;
+
+                    cout << "MST - KRUSKAL - LISTA SASIEDZTWA" << endl;
+                    cout << "  Edge  Weight" << endl;
+                    for (int i = 0; i < list->getNodesCount() - 1; ++i) {
+                        cout << "  " << '(' << lTable[i]->getVStart() << ',' << lTable[i]->getVEnd() << ')';
+                        cout << "  " << lTable[i]->getWeight() << endl;
+                        listMST += lTable[i]->getWeight();
+                    }
+                    cout << "MST=" << listMST << endl << endl;
+
+                    delete[] mTable;
+                    delete[] lTable;
                 }
-                cout << "MST=" << matrixMST << endl << endl;
-
-                cout << "MST - KRUSKAL - LISTA SASIEDZTWA"<<endl;
-                cout << "  Edge  Weight"<<endl;
-                for (int i = 0; i < list->getNodesCount() - 1; ++i) {
-                    cout << "  " << '(' << lTable[i]->getVStart() << ',' << lTable[i]->getVEnd() <<')';
-                    cout << "  " <<lTable[i]->getWeight()<<endl;
-                    listMST += lTable[i]->getWeight();
-                }
-                cout<<"MST="<<listMST<<endl<<endl;
-
-                delete[] mTable;
-                delete[] lTable;
             }
                 break;
             case 0:
@@ -406,8 +418,8 @@ void Menu::showMenuMst() {
 }
 
 void Menu::showMenuSSSP() {
-    AdjacencyMatrix* matrix = new AdjacencyMatrix();
-    AdjacencyList* list = new AdjacencyList();
+    AdjacencyMatrix* matrix = nullptr;
+    AdjacencyList* list = nullptr;
     Timer timer;
     int chooseOption = 0;
     do
@@ -431,7 +443,7 @@ void Menu::showMenuSSSP() {
                     AdjacencyList* newList;
                     newMatrix = FileClass::matrixFromFile(filename, true);
                     newList = FileClass::listFromFile(filename, true);
-                    if (newMatrix && newList)
+                    if (newMatrix != nullptr)
                     {
                         delete matrix;
                         delete list;
@@ -443,127 +455,194 @@ void Menu::showMenuSSSP() {
                 }
                 break;
             case 2:	//WYŚWIETL GRAF
-                matrix->printMatrix();
-                list->printList();
+                if (matrix == nullptr)
+                {
+                    cout << "NIE WCZYTANO GRAFU!\n";
+                } else
+                {
+                    matrix->printMatrix();
+                    list->printList();
+                }
                 break;
             case 3: //SSSP - DIJKSTRA
             {
-                timer.run();
-                HeapSSSP *heapM = matrix->algorithmDijkstra();
-                timer.stop();
-                cout << "Czas (matrix):" << timer.getTimeMs() << " ms"<<endl;
+                if (matrix == nullptr)
+                {
+                    cout << "NIE WCZYTANO GRAFU!\n";
+                } else {
+                    timer.run();
+                    HeapSSSP *heapM = matrix->algorithmDijkstra();
+                    timer.stop();
+                    cout << "Czas (matrix):" << timer.getTimeMs() << " ms" << endl;
 
-                timer.run();
-                HeapSSSP *heapL = list->algorithmDijkstra();
-                timer.stop();
-                cout << "Czas (list):" << timer.getTimeMs() << " ms"<<endl;
+                    timer.run();
+                    HeapSSSP *heapL = list->algorithmDijkstra();
+                    timer.stop();
+                    cout << "Czas (list):" << timer.getTimeMs() << " ms" << endl;
 
-                ///WYNIKI
-                int prevHelp;
-                int countTable = 0;
-                int *prevTable = new int[heapM->getSize()];
+                    ///WYNIKI
+                    int prevHelp;
+                    int countTable = 0;
+                    int *prevTable = new int[heapM->getSize()];
 
-                cout << "SSSP - DIJKSTRA - MACIERZ SASIEDZTWA" << endl;
-                cout << "START = " << heapM->getStartNode() << endl;
-                cout << "End   Dist   Path" << endl;
-                for (int i = 0; i < heapM->getSize(); ++i) {
-                    printf("%3d |%4d  | ", i, heapM->getCostNode(i));
+                    if (matrix->isNegativeEdge())
+                        cout << "UJEMNE KRAWEDZIE! MOZLIWE BLEDY!\n";
+                    cout << "SSSP - DIJKSTRA - MACIERZ SASIEDZTWA" << endl;
+                    cout << "START = " << heapM->getStartNode() << endl;
+                    cout << "End   Dist   Path" << endl;
+                    for (int i = 0; i < heapM->getSize(); ++i) {
+                        printf("%3d |%4d  | ", i, heapM->getCostNode(i));
 
-                    prevHelp = i;
-                    while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
-                    {
-                        prevTable[countTable++] = prevHelp;
-                        prevHelp = heapM->getNode(prevHelp)->getPrev();
+                        prevHelp = i;
+                        while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
+                        {
+                            prevTable[countTable++] = prevHelp;
+                            prevHelp = heapM->getNode(prevHelp)->getPrev();
+                            if (countTable > matrix->getNodesCount()) {
+                                break;
+                            }
+                        }
+
+                        for (int j = countTable - 1; j >= 0; --j) {
+                            printf("%-2d ", prevTable[j]);
+                        }
+                        cout << endl;
+                        countTable = 0;
                     }
 
-                    for (int j = countTable - 1; j >= 0; --j) {
-                        printf("%-2d ", prevTable[j]);
+                    if (list->isNegativeEdge())
+                        cout << "UJEMNE KRAWEDZIE! MOZLIWE BLEDY!\n";
+                    cout << endl << "SSSP - DIJKSTRA - LISTA SASIEDZTWA" << endl;
+                    cout << "START = " << heapL->getStartNode() << endl;
+                    cout << "End   Dist   Path" << endl;
+                    for (int i = 0; i < heapL->getSize(); ++i) {
+                        printf("%3d |%4d  | ", i, heapL->getCostNode(i));
+
+                        prevHelp = i;
+                        while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
+                        {
+                            prevTable[countTable++] = prevHelp;
+                            prevHelp = heapL->getNode(prevHelp)->getPrev();
+                            if (countTable > matrix->getNodesCount()) {
+                                break;
+                            }
+                        }
+
+                        for (int j = countTable - 1; j >= 0; --j) {
+                            printf("%-2d ", prevTable[j]);
+                        }
+                        cout << endl;
+                        countTable = 0;
                     }
-                    cout << endl;
-                    countTable = 0;
+
+                    delete heapM;
+                    delete heapL;
                 }
-
-
-                cout << endl << "SSSP - DIJKSTRA - LISTA SASIEDZTWA" << endl;
-                cout << "START = " << heapL->getStartNode() << endl;
-                cout << "End   Dist   Path" << endl;
-                for (int i = 0; i < heapL->getSize(); ++i) {
-                    printf("%3d |%4d  | ", i, heapL->getCostNode(i));
-
-                    prevHelp = i;
-                    while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
-                    {
-                        prevTable[countTable++] = prevHelp;
-                        prevHelp = heapL->getNode(prevHelp)->getPrev();
-                    }
-
-                    for (int j = countTable - 1; j >= 0; --j) {
-                        printf("%-2d ", prevTable[j]);
-                    }
-                    cout << endl;
-                    countTable = 0;
-                }
-
-                delete heapM;
-                delete heapL;
             }
                 break;
             case 4: //SSSP - BELLMAN-FORD
             {
-                timer.run();
-                CostAndPrevElement** tablePathM = matrix->algorithmBellmanFord();
-                timer.stop();
-                cout << "Czas (matrix):" << timer.getTimeMs() << " ms"<<endl;
+                if (matrix == nullptr)
+                {
+                    cout << "NIE WCZYTANO GRAFU!\n";
+                } else {
+                    timer.run();
+                    CostAndPrevElement **tablePathM = matrix->algorithmBellmanFord();
+                    timer.stop();
+                    cout << "Czas (matrix):" << timer.getTimeMs() << " ms" << endl;
 
-                timer.run();
-                CostAndPrevElement** tablePathL = list->algorithmBellmanFord();
-                timer.stop();
-                cout << "Czas (list):" << timer.getTimeMs() << " ms"<<endl;
+                    timer.run();
+                    CostAndPrevElement **tablePathL = list->algorithmBellmanFord();
+                    timer.stop();
+                    cout << "Czas (list):" << timer.getTimeMs() << " ms" << endl;
 
-                int *prevTable = new int[matrix->getNodesCount()];
+                    //Sprawdzanie czy istnieje cykl ujemny
+                    bool change = false;
+                    int countEdge = 0;
+                    Edge **edges = new Edge *[matrix->getEdgeCount()];
+                    for (int i = 0; i < matrix->getNodesCount(); ++i) {
+                        for (int j = 0; j < matrix->getNodesCount(); ++j) {
+                            if (matrix->getWsk()[i][j] != nullptr)
+                                edges[countEdge++] = matrix->getWsk()[i][j];         //zbieranie krawędzi do tablicy
+                        }
+                    }
+                    for (int j = 0; j < matrix->getEdgeCount(); ++j) {
+                        Edge *edge = edges[j];
 
-                ///WYNIKI
-                int prevHelp;
-                int countTable = 0;
+                        if (tablePathM[edge->getVEnd()]->getCost() > (edge->getWeight() +
+                                                                      tablePathM[edge->getVStart()]->getCost()))     //relaksacja - sprawdzamy czy nowa ścieżka będzie lepsza od aktualnej dla danego wierzchołka
+                        {
+                            tablePathM[edge->getVEnd()]->setCost(edge->getWeight() +
+                                                                 tablePathM[edge->getVStart()]->getCost());   //jeśli tak, to zmień koszta i poprzednika
+                            tablePathM[edge->getVEnd()]->setPrev(edge->getVStart());
+                            change = true;  //nastąpiła zmiana, więc zmień status
+                        }
+                    }
+                    //
 
-                cout << "SSSP - BELLMAN-FORD - MACIERZ SASIEDZTWA" << endl;
-                cout << "START = " << matrix->getStartNode() << endl;
-                cout << "End   Dist   Path" << endl;
-                for (int i = 0; i < matrix->getNodesCount(); ++i) {
-                    printf("%3d |%4d  | ", i, tablePathM[i]->getCost());
-
-                    prevHelp = i;
-                    while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
+                    if (change) //jeśli nastąpiła zmiana, oznacza to, że mamy cykl ujemny, zatem wyniki są niepoprawne
                     {
-                        prevTable[countTable++] = prevHelp;
-                        prevHelp = tablePathM[prevHelp]->getPrev();
+                        cout << "\nWYSTAPIL CYKL UJEMNY!!!\n";
                     }
 
-                    for (int j = countTable - 1; j >= 0; --j) {
-                        printf("%-2d ", prevTable[j]);
-                    }
-                    cout << endl;
-                    countTable = 0;
-                }
 
-                cout << "SSSP - BELLMAN-FORD - LISTA SASIEDZTWA" << endl;
-                cout << "START = " << list->getStartNode() << endl;
-                cout << "End   Dist   Path" << endl;
-                for (int i = 0; i < list->getNodesCount(); ++i) {
-                    printf("%3d |%4d  | ", i, tablePathL[i]->getCost());
+                    int *prevTable = new int[matrix->getNodesCount()];
 
-                    prevHelp = i;
-                    while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
-                    {
-                        prevTable[countTable++] = prevHelp;
-                        prevHelp = tablePathL[prevHelp]->getPrev();
+                    ///WYNIKI
+                    int prevHelp;
+                    int countTable = 0;
+
+                    cout << "SSSP - BELLMAN-FORD - MACIERZ SASIEDZTWA" << endl;
+                    cout << "START = " << matrix->getStartNode() << endl;
+                    cout << "End   Dist   Path" << endl;
+                    for (int i = 0; i < matrix->getNodesCount(); ++i) {
+                        printf("%3d |%4d  | ", i, tablePathM[i]->getCost());
+
+                        prevHelp = i;
+                        while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
+                        {
+                            prevTable[countTable++] = prevHelp;
+                            prevHelp = tablePathM[prevHelp]->getPrev();
+                            if (countTable > matrix->getNodesCount()) {
+                                break;
+                            }
+                        }
+
+                        for (int j = countTable - 1; j >= 0; --j) {
+                            printf("%-2d ", prevTable[j]);
+                        }
+                        cout << endl;
+                        countTable = 0;
                     }
 
-                    for (int j = countTable - 1; j >= 0; --j) {
-                        printf("%-2d ", prevTable[j]);
+                    cout << "SSSP - BELLMAN-FORD - LISTA SASIEDZTWA" << endl;
+                    cout << "START = " << list->getStartNode() << endl;
+                    cout << "End   Dist   Path" << endl;
+                    for (int i = 0; i < list->getNodesCount(); ++i) {
+                        printf("%3d |%4d  | ", i, tablePathL[i]->getCost());
+
+                        prevHelp = i;
+                        while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
+                        {
+                            prevTable[countTable++] = prevHelp;
+                            prevHelp = tablePathL[prevHelp]->getPrev();
+                            if (countTable > matrix->getNodesCount()) {
+                                break;
+                            }
+                        }
+
+                        for (int j = countTable - 1; j >= 0; --j) {
+                            printf("%-2d ", prevTable[j]);
+                        }
+                        cout << endl;
+                        countTable = 0;
                     }
-                    cout << endl;
-                    countTable = 0;
+                    for (int i = 0; i < matrix->getNodesCount(); ++i) {
+                        delete tablePathL[i];
+                        delete tablePathM[i];
+                    }
+                    delete[] tablePathL;
+                    delete[] tablePathM;
                 }
             }
                 break;

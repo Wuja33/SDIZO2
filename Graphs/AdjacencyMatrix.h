@@ -10,6 +10,7 @@ class AdjacencyMatrix {
     int edgeCount;
     int startNode;
     int endNode;
+    bool negativeWeight;
 
 public:
     ~AdjacencyMatrix();
@@ -34,6 +35,7 @@ public:
     int getEdgeCount();
     int getStartNode();
     int getEndNode();
+    bool isNegativeEdge();
 
 };
 
