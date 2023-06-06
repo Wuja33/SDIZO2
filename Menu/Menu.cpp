@@ -583,59 +583,60 @@ void Menu::showMenuSSSP() {
                     if (change) //jeśli nastąpiła zmiana, oznacza to, że mamy cykl ujemny, zatem wyniki są niepoprawne
                     {
                         cout << "\nWYSTAPIL CYKL UJEMNY!!!\n";
-                    }
+                    } else
+                    {
+                        int *prevTable = new int[matrix->getNodesCount()];
 
+                        ///WYNIKI
+                        int prevHelp;
+                        int countTable = 0;
 
-                    int *prevTable = new int[matrix->getNodesCount()];
+                        cout << "SSSP - BELLMAN-FORD - MACIERZ SASIEDZTWA" << endl;
+                        cout << "START = " << matrix->getStartNode() << endl;
+                        cout << "End   Dist   Path" << endl;
+                        for (int i = 0; i < matrix->getNodesCount(); ++i) {
+                            printf("%3d |%4d  | ", i, tablePathM[i]->getCost());
 
-                    ///WYNIKI
-                    int prevHelp;
-                    int countTable = 0;
-
-                    cout << "SSSP - BELLMAN-FORD - MACIERZ SASIEDZTWA" << endl;
-                    cout << "START = " << matrix->getStartNode() << endl;
-                    cout << "End   Dist   Path" << endl;
-                    for (int i = 0; i < matrix->getNodesCount(); ++i) {
-                        printf("%3d |%4d  | ", i, tablePathM[i]->getCost());
-
-                        prevHelp = i;
-                        while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
-                        {
-                            prevTable[countTable++] = prevHelp;
-                            prevHelp = tablePathM[prevHelp]->getPrev();
-                            if (countTable > matrix->getNodesCount()) {
-                                break;
+                            prevHelp = i;
+                            while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
+                            {
+                                prevTable[countTable++] = prevHelp;
+                                prevHelp = tablePathM[prevHelp]->getPrev();
+                                if (countTable > matrix->getNodesCount()) {
+                                    break;
+                                }
                             }
-                        }
 
-                        for (int j = countTable - 1; j >= 0; --j) {
-                            printf("%-2d ", prevTable[j]);
-                        }
-                        cout << endl;
-                        countTable = 0;
-                    }
-
-                    cout << "SSSP - BELLMAN-FORD - LISTA SASIEDZTWA" << endl;
-                    cout << "START = " << list->getStartNode() << endl;
-                    cout << "End   Dist   Path" << endl;
-                    for (int i = 0; i < list->getNodesCount(); ++i) {
-                        printf("%3d |%4d  | ", i, tablePathL[i]->getCost());
-
-                        prevHelp = i;
-                        while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
-                        {
-                            prevTable[countTable++] = prevHelp;
-                            prevHelp = tablePathL[prevHelp]->getPrev();
-                            if (countTable > matrix->getNodesCount()) {
-                                break;
+                            for (int j = countTable - 1; j >= 0; --j) {
+                                printf("%-2d ", prevTable[j]);
                             }
+                            cout << endl;
+                            countTable = 0;
                         }
 
-                        for (int j = countTable - 1; j >= 0; --j) {
-                            printf("%-2d ", prevTable[j]);
+                        cout << "SSSP - BELLMAN-FORD - LISTA SASIEDZTWA" << endl;
+                        cout << "START = " << list->getStartNode() << endl;
+                        cout << "End   Dist   Path" << endl;
+                        for (int i = 0; i < list->getNodesCount(); ++i) {
+                            printf("%3d |%4d  | ", i, tablePathL[i]->getCost());
+
+                            prevHelp = i;
+                            while (prevHelp != -1)      //uzupełnianie całkowitej ścieżki
+                            {
+                                prevTable[countTable++] = prevHelp;
+                                prevHelp = tablePathL[prevHelp]->getPrev();
+                                if (countTable > matrix->getNodesCount()) {
+                                    break;
+                                }
+                            }
+
+                            for (int j = countTable - 1; j >= 0; --j) {
+                                printf("%-2d ", prevTable[j]);
+                            }
+                            cout << endl;
+                            countTable = 0;
                         }
-                        cout << endl;
-                        countTable = 0;
+
                     }
                     for (int i = 0; i < matrix->getNodesCount(); ++i) {
                         delete tablePathL[i];

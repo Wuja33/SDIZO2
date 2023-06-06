@@ -245,6 +245,16 @@ HeapSSSP* AdjacencyList::algorithmDijkstra() {
 }
 
 CostAndPrevElement** AdjacencyList::algorithmBellmanFord() {
+    ///OPIS DZIAŁANIA ALGORYTMU///
+    //1.Tworzymy tablice krawędzi grafu
+    //2.Tworzymy tablice obiektów CostAndPrevElement, które zawierają w sobie koszt przejścia oraz poprzednik danego wierzchołka
+    //3.Ustawiamy koszt przejścia do wierzchołka startowego na 0
+    //4.Wykonujemy V-1 obiegów, pętli (tyle nam zostało wierzchołków to rozpatrzenia), gdzie w każdym obiegu
+    //przeprowadzamy relaksacje krawędzi, tzn. przeglądamy wszystkie krawędzie i jeśli któraś, zmniejszy koszt dojścia
+    //do danego wierzchołka, to następuje modyfikacja ścieżki
+    //5.Na sam koniec można wykonać 1 dodatkowy obieg, który sprawdzi czy wystąpił cykl ujemny (jeśli nastąpiła zmiana
+    //w ścieżce, to istnieje cykl)
+
     Edge** edges = new Edge* [edgeCount];
     CostAndPrevElement** tablePath = new CostAndPrevElement * [nodesCount];
     ListElement* elementHelp;

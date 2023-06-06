@@ -181,20 +181,3 @@ void Heap::print() {
 bool Heap::isEmpty() {
     return heapSize <= 0;
 }
-
-//int Heap::search(int numberToSearch) {
-//    if (size > 0)									//jeœli istnieje kopiec
-//    {
-//        for (unsigned i = 0; i < size; i++)
-//        {
-//            if (wsk[i] == numberToSearch)			//jeœli któryœ element jest równy poszukiwanemu, to zwróæ prawde
-//            {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
-//    else {
-//        return -1;
-//    }
-//}
